@@ -1,0 +1,6 @@
+* {font-family: "JetBrainsMono Nerd Font", sans-serif; font-size: 13px; font-weight: 600;}
+window#waybar {background: #fff0f7; color: #7b526f; border-radius: 22px; border: 2px solid #f6b7d8;}
+#custom-cat, #workspaces, #clock, #cpu, #memory, #network {padding: 0 13px; margin: 4px; border-radius: 14px; background: #f9d7e9;}
+#clock {background: #e9d9fa;}
+#workspaces button {color: #a67f9c; border-radius: 10px; padding: 0 9px;}
+#workspaces button.active {background: #f7a9d2; color: #51374a;}
