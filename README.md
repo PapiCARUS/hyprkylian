@@ -24,6 +24,24 @@ LIBGL_ALWAYS_SOFTWARE=1 start-hyprland
 
 Raccourcis source : **Super+T** terminal, **Super+A** applications, **Super+I** aide.
 
+## Finition visuelle (style géométrique / anime)
+
+Après installation initiale, applique le polish léger suivant depuis SSH :
+
+```bash
+git -C ~/hyprkylian pull --ff-only
+python ~/hyprkylian/polish-kernel236.py
+```
+
+Il sauvegarde les fichiers modifiés, agrandit Waybar, rend CPU/RAM visibles, choisit un véritable fond anime (Howl) du dépôt source et enregistre ton choix de fond d'écran. Dans **Kitty sous Hyprland** :
+
+```bash
+~/.local/bin/rofi-wallpaper --random
+killall -SIGUSR2 waybar
+```
+
+Raccourci `Super+Shift+W` : choisir ensuite n'importe quel autre fond de la collection, qui sera conservé au prochain démarrage.
+
 ## Sauvegardes et récupération
 
 Une copie des anciens dossiers `.config/hypr`, `waybar`, `kitty`, `swaync`, `rofi`, `fastfetch`, `wlogout`, `btop`, `assets`, et de trois utilitaires Rofi est conservée sous `~/.local/state/hyprkylian/kernel236/backups/`. Le script de récupération les remet à leur place (sans désinstaller les paquets).
