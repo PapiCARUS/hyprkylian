@@ -1,42 +1,43 @@
-# hyprkylian 🌸
+# hyprkylian — bureau Hyprland anime, géométrique
 
-Prototype rose kawaii pour **Arch Linux + Hyprland Lua en VM VMware**, inspiré de [Hyprclouds](https://github.com/arfan-on-clouds/hyprclouds). Ce n'est **pas encore le portage complet** du bureau original : les widgets Eww d'origine demandent davantage d'adaptation. Le projet récupère les sources amont pour consultation, et installe pour l'instant un thème rose avec **Waybar, Kitty et un fond généré localement**.
+**Portage expérimental du véritable environnement [Kernel236/my-hyprland-dotfiles](https://github.com/Kernel236/my-hyprland-dotfiles)** (licence Apache-2.0), version source épinglée au commit `98b17a270212fc907c5b305dd661bad4f738ca89`.
 
-## Avant de commencer
+Destiné à **Arch Linux + Hyprland Lua 0.55+ dans VMware Workstation**. Les composants proviennent du dépôt officiel : Hyprland Lua, Waybar, Rofi, Kitty, SwayNC, wlogout, hyprlock, wallpapers anime, système de thèmes Macchiato / Matrix. L'installateur original n'est pas lancé : un script spécial VMware le remplace.
 
-- Hyprland Lua et Kitty déjà opérationnels.
-- Faire un **snapshot VMware avant installation**.
-- Le clavier AZERTY, la résolution VMware et le lancement avec `LIBGL_ALWAYS_SOFTWARE=1 start-hyprland` ne sont pas modifiés.
-- Le script fait une sauvegarde des fichiers qu'il modifie.
+## Installation
 
-## Installation depuis SSH Windows (dans ta session Arch)
+**Un snapshot VMware est obligatoire** avant essai. Conserver une session SSH Windows ouverte pour la récupération. Fermer Hyprland dans la VM avant installation.
 
 ```bash
-sudo pacman -S --needed git
-git clone https://github.com/PapiCARUS/hyprkylian.git ~/hyprkylian
-bash ~/hyprkylian/install.sh
+cd ~/hyprkylian
+git pull --ff-only
+bash install-kernel236.sh
 ```
 
-L'installateur demande une confirmation et le mot de passe sudo. **Il n'exécute pas les anciens scripts Fedora Hyprclouds.**
+La procédure demande plusieurs confirmations et lance une mise à jour Arch via pacman. Certaines dépendances facultatives peuvent manquer aux dépôts officiels ; le script les signale. Elle ne lance pas automatiquement d'installateur AUR. Il faut une connexion internet sur la VM pour cloner les sources amont.
 
-## Démarrer le bureau rose
-
-Dans **Kitty à l'intérieur de Hyprland** (pas dans la session SSH) :
+Après installation, relancer Hyprland dans VMware :
 
 ```bash
-bash ~/.config/hyprkylian/start.sh
+LIBGL_ALWAYS_SOFTWARE=1 start-hyprland
 ```
 
-Le démarrage est manuel pendant cette première phase de test. Le script lance un fond via `swww` et une barre `waybar` sans modifier la configuration Hyprland. Le terminal Kitty adopte le thème dans les nouvelles fenêtres.
+Raccourcis source : **Super+T** terminal, **Super+A** applications, **Super+I** aide.
 
-Journaux : `/tmp/hyprkylian-waybar.log` et `/tmp/hyprkylian-wallpaper.log`.
+## Sauvegardes et récupération
 
-## Restaurer
+Une copie des anciens dossiers `.config/hypr`, `waybar`, `kitty`, `swaync`, `rofi`, `fastfetch`, `wlogout`, `btop`, `assets`, et de trois utilitaires Rofi est conservée sous `~/.local/state/hyprkylian/kernel236/backups/`. Le script de récupération les remet à leur place (sans désinstaller les paquets).
 
 ```bash
-bash ~/hyprkylian/restore.sh
+bash ~/hyprkylian/restore-kernel236.sh
 ```
 
-La restauration remet les sauvegardes Hyprland et Kitty et retire les fichiers du thème. Les paquets installés restent présents.
+Le script recopie tes paramètres de clavier et de moniteur dans `~/.config/hypr/local-vm.lua`, supprime les variables NVIDIA du fichier principal, diminue blur, transparence et animations et évite de lancer hypridle dans la VM. **Tout n'a pas encore été testé visuellement sur cette machine**. Si l'interface ne démarre pas, utiliser SSH et le script de restauration.
 
-**Statut** : fichiers publiés et relus, mais pas encore testés sur cette VM.
+## Historique
+
+L'ancienne expérience Hyprclouds est encore présente dans les fichiers `install.sh` et `restore.sh`. **Ne pas les utiliser pour installer ce nouveau bureau**. Le projet actif est maintenant Kernel236.
+
+## Attribution
+
+Dotfiles originaux : [Kernel236/my-hyprland-dotfiles](https://github.com/Kernel236/my-hyprland-dotfiles), sous [Apache License 2.0](https://github.com/Kernel236/my-hyprland-dotfiles/blob/main/LICENSE). L'installateur clone l'original, il ne redistribue pas les éléments graphiques d'autres auteurs.
