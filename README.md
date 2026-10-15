@@ -1,12 +1,15 @@
 # hyprkylian 🌸
 
-Adaptation expérimentale de [Hyprclouds](https://github.com/arfan-on-clouds/hyprclouds) pour **Arch Linux + Hyprland Lua 0.55+ sous VMware**.
+Prototype rose kawaii pour **Arch Linux + Hyprland Lua en VM VMware**, inspiré de [Hyprclouds](https://github.com/arfan-on-clouds/hyprclouds). Ce n'est **pas encore le portage complet** du bureau original : les widgets Eww d'origine demandent davantage d'adaptation. Le projet récupère les sources amont pour consultation, et installe pour l'instant un thème rose avec **Waybar, Kitty et un fond généré localement**.
 
-Le but : un bureau rose pastel et kawaii tout en **conservant les paramètres existants** (AZERTY, écran personnalisé, rendu logiciel). Ce projet n'est pas encore un portage intégral du dépôt d'origine : il en récupère une copie de référence et propose un bureau inspiré avec Eww simplifié ou Waybar, Kitty et un fond généré localement.
+## Avant de commencer
 
-**Avant installation, créer un snapshot VMware.** L'installateur fait une sauvegarde de la configuration qu'il modifie. Ce projet n'a pas encore été testé en session graphique sur la VM cible.
+- Hyprland Lua et Kitty déjà opérationnels.
+- Faire un **snapshot VMware avant installation**.
+- Le clavier AZERTY, la résolution VMware et le lancement avec `LIBGL_ALWAYS_SOFTWARE=1 start-hyprland` ne sont pas modifiés.
+- Le script fait une sauvegarde des fichiers qu'il modifie.
 
-## Installation (depuis SSH)
+## Installation depuis SSH Windows (dans ta session Arch)
 
 ```bash
 sudo pacman -S --needed git
@@ -14,25 +17,26 @@ git clone https://github.com/PapiCARUS/hyprkylian.git ~/hyprkylian
 bash ~/hyprkylian/install.sh
 ```
 
-Répondre aux confirmations, puis ouvrir **Kitty dans Hyprland** et lancer :
+L'installateur demande une confirmation et le mot de passe sudo. **Il n'exécute pas les anciens scripts Fedora Hyprclouds.**
+
+## Démarrer le bureau rose
+
+Dans **Kitty à l'intérieur de Hyprland** (pas dans la session SSH) :
 
 ```bash
 bash ~/.config/hyprkylian/start.sh
 ```
 
-Relancer ensuite Hyprland avec le même `LIBGL_ALWAYS_SOFTWARE=1 start-hyprland` qu'avant. Le démarrage de la barre est enregistré pour les sessions suivantes.
+Le démarrage est manuel pendant cette première phase de test. Le script lance un fond via `swww` et une barre `waybar` sans modifier la configuration Hyprland. Le terminal Kitty adopte le thème dans les nouvelles fenêtres.
 
-## Annuler
+Journaux : `/tmp/hyprkylian-waybar.log` et `/tmp/hyprkylian-wallpaper.log`.
+
+## Restaurer
 
 ```bash
 bash ~/hyprkylian/restore.sh
 ```
 
-La restauration remet les configurations Hyprland et Kitty sauvegardées, sans désinstaller les paquets. Les journaux de démarrage se trouvent dans `/tmp/hyprkylian-*.log`.
+La restauration remet les sauvegardes Hyprland et Kitty et retire les fichiers du thème. Les paquets installés restent présents.
 
-## Points importants
-
-- Ne remplace pas `~/.config/hypr/hyprland.lua` : y ajoute un petit module séparé, sans toucher à `input` ou `monitor`.
-- L'installateur ne change pas ton mode de lancement VMware et n'exécute pas de configurations Fedora obsolètes.
-- La barre Eww est facultative, via l'AUR après inspection du `PKGBUILD`; Waybar sert de solution de secours.
-- Code tiers : pas de redistribution du dépôt original, qui est seulement cloné pour référence.
+**Statut** : fichiers publiés et relus, mais pas encore testés sur cette VM.
